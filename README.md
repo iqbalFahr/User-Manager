@@ -11,9 +11,6 @@ Make sure you're using:
 ```bash
 Node v18.20.4
 
-
-
-
 How to use:
 
 1. Git Clone
