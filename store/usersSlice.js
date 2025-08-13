@@ -18,7 +18,7 @@ export const fetchUsers = createAsyncThunk(
 const usersSlice = createSlice({
   name: "users",
   initialState: {
-    list: [], // array user
+    list: [],
     total: 0,
     limit: 10,
     page: 1,
@@ -31,7 +31,7 @@ const usersSlice = createSlice({
     addUser(state, action) {
       state.list.unshift({
         ...action.payload,
-        id: Date.now(), // id unik sementara
+        id: Date.now(),
       });
       state.total += 1;
     },

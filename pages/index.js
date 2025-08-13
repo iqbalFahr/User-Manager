@@ -15,19 +15,17 @@ export default function AddUserPage() {
   const [department, setDepartment] = useState("");
   const [role, setRole] = useState("");
   const [zone, setZone] = useState("");
-  const [loading, setLoading] = useState(false); // loading untuk form submit
-  const [loadingList, setLoadingList] = useState(true); // loading untuk daftar user
+  const [loading, setLoading] = useState(false);
+  const [loadingList, setLoadingList] = useState(true);
   const [newUserIds, setNewUserIds] = useState([]);
 
-  // search & sort
   const [searchTerm, setSearchTerm] = useState("");
   const [sortAZ, setSortAZ] = useState(false);
 
-  // fetch users when page changes
   useEffect(() => {
     setLoadingList(true);
     dispatch(fetchUsers({ page, limit })).finally(() => {
-      setTimeout(() => setLoadingList(false), 800); // delay untuk efek skeleton
+      setTimeout(() => setLoadingList(false), 800);
     });
   }, [dispatch, page, limit]);
 
@@ -97,7 +95,6 @@ export default function AddUserPage() {
     }
   };
 
-  // Filtering & Sorting
   let filteredUsers = (list || []).filter((u) => {
     const fullName = `${u.firstName} ${u.lastName}`.toLowerCase();
     return (
@@ -114,7 +111,6 @@ export default function AddUserPage() {
 
   const totalPages = Math.ceil(total / limit);
 
-  // Skeleton Loader untuk Web
   const TableSkeleton = () => (
     <div className="hidden md:block">
       <table className="w-full border-collapse">
@@ -141,7 +137,6 @@ export default function AddUserPage() {
     </div>
   );
 
-  // Skeleton Loader untuk Mobile
   const CardSkeleton = () => (
     <div className="block md:hidden space-y-3">
       {Array.from({ length: 5 }).map((_, i) => (
@@ -165,11 +160,9 @@ export default function AddUserPage() {
           list.length > 0 ? "w-full" : "w-[50%]"
         } bg-white/90 rounded-lg shadow-lg p-6 flex flex-col lg:flex-row gap-6`}
       >
-        {/* Form */}
         <div className="flex-1">
           <h2 className="text-2xl font-bold text-center mb-4">Add User</h2>
           <form onSubmit={handleSubmit} className="space-y-3">
-            {/* First & Last Name */}
             <div className="flex gap-3 flex-col sm:flex-row">
               <input
                 type="text"
@@ -189,7 +182,6 @@ export default function AddUserPage() {
               />
             </div>
 
-            {/* Email & Phone */}
             <div className="flex gap-3 flex-col sm:flex-row">
               <input
                 type="email"
@@ -207,7 +199,6 @@ export default function AddUserPage() {
               />
             </div>
 
-            {/* Department */}
             <input
               type="text"
               placeholder="Department"
@@ -217,7 +208,6 @@ export default function AddUserPage() {
               className="w-full border border-gray-300 rounded px-3 py-2 text-sm"
             />
 
-            {/* Role */}
             <input
               type="text"
               placeholder="Role"
@@ -227,7 +217,6 @@ export default function AddUserPage() {
               className="w-full border border-gray-300 rounded px-3 py-2 text-sm"
             />
 
-            {/* Zone */}
             <input
               type="text"
               placeholder="Zone"
@@ -237,7 +226,6 @@ export default function AddUserPage() {
               className="w-full border border-gray-300 rounded px-3 py-2 text-sm"
             />
 
-            {/* Button */}
             <button
               type="submit"
               disabled={loading}
@@ -248,10 +236,8 @@ export default function AddUserPage() {
           </form>
         </div>
 
-        {/* Current List */}
         {list.length > 0 && (
           <div className="flex-1 bg-gray-50 p-4 rounded-lg">
-            {/* Search & Sort */}
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-3 gap-2">
               <input
                 type="text"
@@ -270,7 +256,6 @@ export default function AddUserPage() {
 
             <h2 className="text-xl font-bold mb-3">Daftar Users</h2>
 
-            {/* Loading Skeleton */}
             {loadingList ? (
               <>
                 <TableSkeleton />
@@ -278,7 +263,6 @@ export default function AddUserPage() {
               </>
             ) : (
               <>
-                {/* Desktop Table */}
                 <div className="hidden md:block overflow-x-auto">
                   <table className="w-full border-collapse">
                     <thead>
@@ -309,7 +293,6 @@ export default function AddUserPage() {
                   </table>
                 </div>
 
-                {/* Mobile Card View */}
                 <div className="block md:hidden space-y-3">
                   {filteredUsers.map((u) => (
                     <div
@@ -341,7 +324,6 @@ export default function AddUserPage() {
               </>
             )}
 
-            {/* Pagination */}
             {!loadingList && (
               <div className="mt-4 w-full overflow-x-auto">
                 <div className="flex justify-center gap-2 flex-wrap">
