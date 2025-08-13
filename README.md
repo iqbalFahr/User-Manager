@@ -17,6 +17,6 @@ Node v18.20.4
 How to use:
 
 1. Git Clone
-2. npm run i
+2. npm i
 3. npm run dev
 ```
